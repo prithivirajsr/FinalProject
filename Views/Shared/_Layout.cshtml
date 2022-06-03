@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link rel="icon" href="@Url.Content("~/EventFavicon.ico")" />
+    <link href="~/Content/solid.min.css" rel="stylesheet" />
+    <link href="~/Content/regular.min.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header_toggle">
+            <i class="fas fa-bars" id="header-toggle"></i>
+        </div>
+        <div class="d-lg-inline-flex">
+            <p class="me-5" style="margin-top:10px;">
+                <strong>Welcome <span class="username">@TempData["loggedInUserName"]</span></strong>
+            </p>
+            @{ 
+                TempData.Keep("loggedInUserName");
+            }
+            <div class="header_img">
+                <img src="~/Images/profile.png" alt="user-image">
+            </div>
+        </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="#" class="nav_logo">
+                    <img src="~/Images/event1.png" alt="event logo" />
+                    <span class="nav_logo-name"> Event World</span>
+                </a>
+                <div class="nav_list">
+                    <a href="~/Member/AllMembers" class="nav_link" id="one">
+                        <i class="fas fa-users"></i>
+                        <span class="nav_name">Members</span>
+                    </a>
+                    <a href="~/Event/AllEvents" class="nav_link active" id="two">
+                        <i class="far fa-calendar-alt"></i>
+                        <span class="nav_name margin">Event Attendees</span>
+                    </a>
+                    <a href="~/Home/Report" class="nav_link" id="three">
+                        <i class="fas fa-file-alt ms-1"></i>
+                        <span class="nav_name margin">Event Report</span>
+                    </a>
+                </div>
+                <a href="~/Home/Signup" class="nav_link">
+                    <img src="~/Images/sign-out.png" />
+                    <span class="nav_name margin">Sign Out</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <!--Container Main start-->
+    <div class="height-100 bg-light">
+        @RenderBody()
+    </div>
+    <!--Container Main end-->
+
+    @if (TempData["Error"] != null)
+    {
+        <span class="d-none" id="error-message">@TempData["Error"]</span>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <span class="d-none" id="success-message">@TempData["Success"]</span>
+    }
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/umd/popper.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery-ui-1.13.1.min.js"></script>
+    <script src="~/Scripts/layout.js"></script>
+    <script src="~/Scripts/fontawesome/fontawesome.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/chart.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+<script>
+        $("input[data-val-date]").removeAttr("data-val-date");
+        $(".addeventdate").removeAttr("value");
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1990:2030"
+            });
+            toastr.options = {
+                closeButton: true,
+                positionClass: "toast-top-center"
+            }
+            var errormessage = $("#error-message").text();
+            if (errormessage != '') {
+                toastr.error(errormessage);
+            }
+            var successmessage = $("#success-message").text();
+            if (successmessage != '') {
+                toastr.success(successmessage);
+            }
+            $("#refresh").click(function () {
+                location.reload();
+            });
+        });
+        if (window.location.href == "https://localhost:44342/Home/Report")
+        {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['ECO', 'GDC', 'NSS'],
+                datasets: [{
+                    label: 'Event Attended',
+                    data: [@ViewBag.ECOAttended, @ViewBag.GDCAttended, @ViewBag.NSSAttended],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Event Not Attended',
+                    data: [@ViewBag.ECONotAttended, @ViewBag.GDCNotAttended, @ViewBag.NSSNotAttended],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+
+        });
+        }
+
+</script>
+
+    <script>
+       
+    </script>
+</body>
+</html>

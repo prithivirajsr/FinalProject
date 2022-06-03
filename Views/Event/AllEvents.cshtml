@@ -1,0 +1,159 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+@model IPagedList<FinalProject.Models.EventModel>
+
+@{
+    ViewBag.Title = "Events Attendees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h3 class="text-center">Events Attendees</h3>
+    <hr />
+
+    <div class="buttons">
+        <button class="btn btn-primary btn-sm" id="refresh">
+            Refresh
+        </button>
+        <p class="d-inline">
+            <strong>Total Events: </strong>
+            @if (ViewBag.EventsCount == 0)
+            {
+                <span>0</span>
+            }
+            else
+            {
+                @ViewBag.EventsCount
+            }
+        </p>
+        @Html.ActionLink("Add Event", "AddEvent", "Event", new { @class = "btn btn-secondary btn-sm" })
+        @using (Html.BeginForm("ExportAsExcel", "Event"))
+        {
+            @Html.AntiForgeryToken();
+            <input type="submit" value="ExportAsExcel" class="btn btn-success btn-sm far fa-file-excel" />
+        }
+    </div>
+
+    <div class="clubs d-flex justify-content-around align-items-center mt-3">
+        <span><strong>ECO - </strong>Green Club</span>
+        <span><strong>GDC - </strong>Google Developer Community</span>
+        <span><strong>NSS - </strong>National Service Scheme</span>
+        <strong class="me-1">Attended - <span class="d-inline-block bg-success  event"></span></strong>
+        <strong class="me-1">Not Attended - <span class="d-lg-inline-block bg-danger event"></span></strong>
+    </div>
+
+    <div class="mt-3 text-center">
+        @using (Html.BeginForm("AllEvents", "Event", FormMethod.Get))
+        {
+            <div class="d-inline-block">
+                <strong>Search By:</strong>
+                @Html.RadioButton("searchBy", "Name", false, new { @class = "form-check-input searchby mt-0 me-1" })
+                @Html.Label("Name", new { @class = "form-label fw-bold me-3" })
+                @Html.RadioButton("searchBy", "Venue", false, new { @class = "form-check-input  searchby mt-0 me-1" })
+                @Html.Label("Venue", new { @class = "form-label fw-bold me-3" })
+            </div>
+            @Html.TextBox("search", null, new { @class = "form-control-sm d-inline-block" })
+            <input type="submit" value="Search" class="btn btn-outline-dark btn-sm" />
+            @Html.ActionLink("GetAllEvents", "AllEvents", "Event", new { @class = "btn btn-outline-success btn-sm" })
+        }
+    </div>
+    <table class="table table-responsive mt-3">
+        <thead class="table-primary">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().MemberName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Venue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().ECO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().GDC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().NSS)
+                </th>
+                <th>
+                    @Html.DisplayName("Actions")
+                </th>
+            </tr>
+        </thead>
+
+        <tbody class="table-secondary">
+            @if (Model.Count == 0)
+            {
+                <tr class="text-center">
+                    <td colspan="7">
+                        No Data Found
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MemberName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Venue)
+                        </td>
+                        <td>
+                            @Html.Label(item.Date.ToShortDateString())
+                        </td>
+                        <td>
+                            @if (item.ECO == "Attended")
+                            {
+                                <p class="bg-success event"></p>
+                            }
+                            else
+                            {
+                                <p class="bg-danger event"></p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.GDC == "Attended")
+                            {
+                                <p class="bg-success event"></p>
+                            }
+                            else
+                            {
+                                <p class="bg-danger event"></p>
+                            }
+                        </td>
+                        <td>
+                            @if (item.NSS == "Attended")
+                            {
+                                <p class="bg-success event"></p>
+                            }
+                            else
+                            {
+                                <p class="bg-danger event"></p>
+                            }
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditEvent",
+                           new { eventid = item.EventId, memberid = item.MemberId }, new { @class = "btn btn-success btn-sm" }) |
+                            @Html.ActionLink("Details", "EventDetails",
+                           new { eventid = item.EventId, memberid = item.MemberId }, new { @class = "btn btn-primary btn-sm" }) |
+                            @Html.ActionLink("Delete", "DeleteEvent",
+                           new { eventid = item.EventId }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="pagination text-center">
+        @Html.PagedListPager(Model, i => Url.Action("AllEvents", "Event",
+       new { i, @class = "page-item" }))
+    </div>
+</div>
+

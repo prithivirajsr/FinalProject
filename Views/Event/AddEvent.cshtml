@@ -1,0 +1,121 @@
+﻿@model FinalProject.Models.EventModel
+
+@{
+    ViewBag.Title = "AddEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container w-75 py-5">
+    <h2>Add Event</h2>
+    <hr />
+    @using (Html.BeginForm("AddEvent","Event",FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row mt-4">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MemberName, htmlAttributes: new { @class = "form-label fw-bold" })
+                    <span class="text-danger fw-bold">*</span>
+                    <div class="input-group">
+                        @Html.DropDownListFor(model => model.MemberName, Model.SelectMember,
+                       "Please select",new {@class="form-select"})
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <small>
+                        @Html.ValidationMessageFor(model => model.MemberName, "", new { @class = "text-danger fw-bold" })
+                    </small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Venue, htmlAttributes: new { @class = "form-label fw-bold" })
+                    <span class="text-danger fw-bold">*</span>
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.Venue,
+                       new { htmlAttributes = new { @class = "form-control", placeholder="Enter Your Venue" } })
+                        <span class="input-group-text"><i class="fas fa-location-arrow"></i></span>
+                    </div>
+                    <small>
+                        @Html.ValidationMessageFor(model => model.Venue, "", new { @class = "text-danger fw-bold" })
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "form-label fw-bold" })
+                    <span class="text-danger fw-bold">*</span>
+                    <div class="input-group">
+                        @Html.EditorFor(model => model.Date,
+                       new { htmlAttributes = new { @class = "datepicker addeventdate form-control",placeholder="Pick Your Event Date"} })
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <small>
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger fw-bold" })
+                    </small>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.LabelFor(model => model.ECO, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="input-group-text bg-transparent border-0 icon"><i class="far fa-calendar-check"></i></span>
+                        <span class="text-danger fw-bold">*</span>
+                    </div>
+                    @Html.RadioButtonFor(model => model.ECO, "Attended", new { @class = "form-check-input me-1" })
+                    @Html.Label("Attended", new { @class = "form-check-label me-3" })
+                    @Html.RadioButtonFor(model => model.ECO, "Not Attended", new { @class = "form-check-input me-1" })
+                    @Html.Label("Not Attended", new { @class = "form-check-label" })
+                </div>
+                <small>
+                    @Html.ValidationMessageFor(model => model.ECO, "", new { @class = "text-danger fw-bold" })
+                </small>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.LabelFor(model => model.GDC, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="input-group-text bg-transparent border-0 icon"><i class="far fa-calendar-check"></i></span>
+                        <span class="text-danger fw-bold">*</span>
+                    </div>
+                    @Html.RadioButtonFor(model => model.GDC, "Attended", new { @class = "form-check-input me-1" })
+                    @Html.Label("Attended", new { @class = "form-check-label me-3" })
+                    @Html.RadioButtonFor(model => model.GDC, "Not Attended", new { @class = "form-check-input me-1" })
+                    @Html.Label("Not Attended", new { @class = "form-check-label" })
+                </div>
+                <small>
+                    @Html.ValidationMessageFor(model => model.GDC, "", new { @class = "text-danger fw-bold" })
+                </small>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <div class="input-group">
+                        @Html.LabelFor(model => model.NSS, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="input-group-text bg-transparent border-0 icon"><i class="far fa-calendar-check"></i></span>
+                        <span class="text-danger fw-bold">*</span>
+                    </div>
+                    @Html.RadioButtonFor(model => model.NSS, "Attended", new { @class = "form-check-input me-1" })
+                    @Html.Label("Attended", new { @class = "form-check-label me-3" })
+                    @Html.RadioButtonFor(model => model.NSS, "Not Attended", new { @class = "form-check-input me-1" })
+                    @Html.Label("Not Attended", new { @class = "form-check-label" })
+                </div> 
+                <small>
+                    @Html.ValidationMessageFor(model => model.NSS, "", new { @class = "text-danger fw-bold" })
+                </small>
+            </div>
+        </div>
+        
+
+        <div class="form-group mt-3">
+            <div class="">
+                <button class="btn btn-success me-3">Create</button>
+                @Html.ActionLink("Back", "AllEvents", "Event", new { @class = "btn btn-dark" })
+            </div>
+        </div>
+    }
+
+</div>
+

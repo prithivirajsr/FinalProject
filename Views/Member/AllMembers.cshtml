@@ -1,0 +1,143 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+@model IPagedList<FinalProject.Models.MemberModel>
+
+@{
+    ViewBag.Title = "Members";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container py-5">
+    <h3 class="text-center">Members</h3>
+    <hr />
+    <div class="buttons">
+        <button class="btn btn-primary btn-sm" id="refresh">
+            Refresh
+        </button>
+        <p class="d-inline">
+            <strong>Total Members: </strong>
+            @if (ViewBag.MembersCount == 0)
+            {
+                <span>0</span>
+            }
+            else
+            {
+                @ViewBag.MembersCount
+            }
+        </p>
+        @Html.ActionLink("Add Member", "AddMember", "Member", new { @class = "btn btn-secondary btn-sm" })
+        @using (Html.BeginForm("ExportAsExcel", "Member"))
+        {
+            @Html.AntiForgeryToken();
+            <input type="submit" value="ExportAsExcel" class="btn btn-success btn-sm far fa-file-excel" />
+        }
+    </div>
+    <div class="mt-3 text-center">
+        @using (Html.BeginForm("AllMembers", "Member", FormMethod.Get))
+        {
+            <div class="d-inline-block">
+                <strong>Search By:</strong>
+                @Html.RadioButton("searchBy", "Name", false, new { @class = "form-check-input searchby mt-0 me-1" })
+                @Html.Label("Name", new { @class = "form-label fw-bold me-3" })
+                @Html.RadioButton("searchBy", "Email", false, new { @class = "form-check-input  searchby mt-0 me-1" })
+                @Html.Label("Email", new { @class = "form-label fw-bold me-3" })
+            </div>
+            @Html.TextBox("search", null, new { @class = "form-control-sm d-inline-block" })
+            <input type="submit" value="Search" class="btn btn-outline-dark btn-sm" />
+            @Html.ActionLink("GetAllMember", "AllMembers", "Member", new { @class = "btn btn-outline-success btn-sm" })
+        }
+    </div>
+    
+
+    <table class="table table-responsive mt-3">
+        <thead class="table-success">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Profession)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().DateOfBirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().MobileNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Pincode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Email)
+                </th>
+                <th>
+                    @Html.DisplayName("Action")
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-secondary">
+            @if (Model.Count == 0)
+            {
+                <tr class="text-center">
+                    <td colspan="9">
+                        No Data Found
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Profession)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td>
+                            @Html.Label(item.DateOfBirth.ToShortDateString())
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MobileNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pincode)
+                        </td>
+                        <td>
+                            <p>@item.Email</p>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditMember",
+                           new { id = item.MemberId }, new { @class = "btn btn-success btn-sm" }) |
+                            @Html.ActionLink("Details", "MemberDetails",
+                           new { id = item.MemberId }, new { @class = "btn btn-primary btn-sm" }) |
+                            @Html.ActionLink("Delete", "DeleteMember",
+                           new { id = item.MemberId }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        @Html.PagedListPager(Model, i => Url.Action("AllMembers", "Member",
+       new { i, @class = "page-item" }))
+    </div>
+</div>
+

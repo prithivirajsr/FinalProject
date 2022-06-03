@@ -1,0 +1,150 @@
+﻿@model FinalProject.Models.MemberModel
+
+@{
+    ViewBag.Title = "AddMember";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container w-75 py-3">
+    <h2>Add Member</h2>
+    <hr />
+    @using (Html.BeginForm("AddMember", "Member", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="text-danger fw-bold">*</span>
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.FullName,
+                           new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Full Name" } })
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <small>
+                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger fw-bold" })
+                        </small>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Profession, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="text-danger fw-bold">*</span>
+                        <div class="input-group">
+                            @Html.DropDownListFor(model => model.Profession, new List<SelectListItem>
+                              { new SelectListItem{Text="Student", Value="Student"},
+                                new SelectListItem{Text="Employee", Value="Employee"},
+                                new SelectListItem{Text="Other", Value="Other"}}, "Select Profession",
+                                new { @class = "form-select" })
+                            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                        </div>
+                        <small>
+                            @Html.ValidationMessageFor(model => model.Profession, "", new { @class = "text-danger fw-bold" })
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="input-group">
+                            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "form-label fw-bold" })
+                            <span class="input-group-text bg-transparent border-0 icon"><i class="fas fa-venus-mars"></i></span>
+                            <span class="text-danger fw-bold">*</span>
+                        </div>
+                        @Html.RadioButtonFor(model => model.Gender, "Male", new { @class = "form-check-input me-1" })
+                        @Html.Label("Male", new { @class = "form-check-label me-3" })
+                        @Html.RadioButtonFor(model => model.Gender, "Female", new { @class = "form-check-input me-1" })
+                        @Html.Label("Female", new { @class = "form-check-label" })
+                    </div>
+                    <small>
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger fw-bold" })
+                    </small>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateOfBirth, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="text-danger fw-bold">*</span>
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.DateOfBirth,
+                           new { htmlAttributes = new { @class = "datepicker form-control", placeholder = "Pick Your Date Of Birth" } })
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        </div>
+                        <small>
+                            @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger fw-bold" })
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="text-danger fw-bold">*</span>
+                        <div class="input-group">
+                            @Html.DropDownListFor(model => model.City, new List<SelectListItem>
+                                { new SelectListItem{Text="Chennai", Value="Chennai"},
+                                  new SelectListItem{Text="Madurai", Value="Madurai"},
+                                  new SelectListItem{Text="Trichy", Value="Trichy"},
+                                  new SelectListItem{Text="Coimbatore", Value="Coimbatore"},
+                                  new SelectListItem{Text="Salem", Value="Salem"}}, "Select City",
+                                  new { @class = "form-select" })
+                            <span class="input-group-text"><i class="fas fa-city"></i></span>
+                        </div>
+                        <small>
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger fw-bold" })
+                        </small>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="text-danger fw-bold">*</span>
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.Pincode,
+                           new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Pincode" } })
+                            <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                        </div>
+                        <small>
+                            @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger fw-bold" })
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="text-danger fw-bold">*</span>
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.MobileNo,
+                           new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Mobile No." } })
+                            <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                        </div>
+                        <small>
+                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger fw-bold" })
+                        </small>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label fw-bold" })
+                        <span class="text-danger fw-bold">*</span>
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.Email,
+                           new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Email" } })
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <small>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger fw-bold" })
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <button class="btn btn-success me-3">Add</button>
+                @Html.ActionLink("Back", "AllMembers", "Member", new { @class = "btn btn-dark" })
+            </div>
+    }
+</div>

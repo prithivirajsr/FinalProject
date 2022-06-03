@@ -1,0 +1,13 @@
+Gif:
+
+<a href="https://storyset.com/event">Event illustrations by Storyset</a>
+
+SVG:
+
+<a href="https://storyset.com/event">Event illustrations by Storyset</a>
+
+<a href="https://storyset.com/work">Work illustrations by Storyset</a>
+
+<a href="https://storyset.com/work">Work illustrations by Storyset</a>
+
+<a href="https://storyset.com/user">User illustrations by Storyset</a>

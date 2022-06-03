@@ -1,0 +1,83 @@
+﻿*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.signin-container{
+    height:500px;
+    margin:50px auto;
+    box-shadow:0 0 15px;
+}
+
+.outer-row{
+    height:500px;
+}
+
+.col-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d1ffde;
+}
+
+.col-right {
+    color: #fff;
+    background-image:url("../Images/Events.gif");
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-size:contain;
+}
+
+h4 {
+    color: #49ac83;
+}
+
+.forgotpassword-link {
+    text-decoration: none;
+    color: #49ac83;
+    float: left;
+    font-weight: bolder;
+}
+
+.login-button {
+    background-color: #75b687;
+    color:#fff;
+    font-weight:500;
+    float: right;
+}
+
+.form-label{
+    font-weight:bold;
+}
+
+.hr{
+    clear:both;
+    margin-top:10px;
+}
+
+@media only screen and (max-width: 500px) {
+    .signin-container{
+        width:100% !important;
+    }
+    .forgotpassword-link {
+        float: left;
+    }
+
+    .login-button {
+        float: right;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .col-right {
+        display:none;
+    }
+    .col-left{
+        height:400px;
+    }
+    .signin-container{
+        height:400px;
+    }
+}
+

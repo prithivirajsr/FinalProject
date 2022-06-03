@@ -1,0 +1,74 @@
+﻿@model FinalProject.Models.EventModel
+
+@{
+    ViewBag.Title = "DeleteEvent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container d-flex justify-content-center py-5">
+    <div class="card w-75">
+        <div class="card-header">
+            <h4 class="text-center">Delete Event</h4>
+        </div>
+        <div class="card-body">
+            <div class="row my-3">
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text p-0  me-2 bg-transparent border-0"><i class="fas fa-user"></i></span>
+                        <strong>@Html.DisplayNameFor(model => model.MemberName):</strong>
+                        &nbsp;@Html.DisplayFor(model => model.MemberName)
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text p-0  me-2 bg-transparent border-0"><i class="fas fa-user-tie"></i></span>
+                        <strong>@Html.DisplayNameFor(model => model.Venue):</strong>
+                        &nbsp;@Html.DisplayFor(model => model.Venue)
+                    </div>
+
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text p-0  me-2 bg-transparent border-0"><i class="fas fa-calendar-alt"></i></span>
+                        <strong>@Html.DisplayNameFor(model => model.Date):</strong>
+                        &nbsp;@Html.Label(Model.Date.ToShortDateString())
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text p-0  me-2 bg-transparent border-0"><i class="far fa-calendar-check"></i></span>
+                        <strong>@Html.DisplayNameFor(model => model.ECO):</strong>
+                        &nbsp;@Html.DisplayFor(model => model.ECO)
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text p-0  me-2 bg-transparent border-0"><i class="far fa-calendar-check"></i></span>
+                        <strong>@Html.DisplayNameFor(model => model.GDC):</strong>
+                        &nbsp;@Html.DisplayFor(model => model.GDC)
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <span class="input-group-text p-0  me-2 bg-transparent border-0"><i class="far fa-calendar-check"></i></span>
+                        <strong>@Html.DisplayNameFor(model => model.NSS):</strong>
+                        &nbsp;@Html.DisplayFor(model => model.NSS)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Delete" class="btn btn-danger me-3" />
+                @Html.ActionLink("Back", "AllEvents", "Event", new { @class = "btn btn-dark" })
+            }
+        </div>
+    </div>
+</div>
+

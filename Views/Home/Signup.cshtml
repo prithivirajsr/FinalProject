@@ -1,0 +1,198 @@
+﻿@model FinalProject.Models.UserModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/solid.min.css" rel="stylesheet" />
+    <link href="~/Content/regular.min.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/signup.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container signup-container w-100">
+        <div class="row outer-row">
+            <div class="col-7 col-left">
+                <section class="w-100">
+                    <h2 class="text-center">Sign Up</h2>
+                    <h4 class="text-center mt-3">Welcome To Event World</h4>
+                    @using (Html.BeginForm("Signup", "Home", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken();
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <div>
+                                        @Html.LabelFor(model => model.Name, new { @class = "form-label" })
+                                        <span class="text-danger fw-bold">*</span>
+                                    </div>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.Name,
+                                       new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Name" } })
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <small class="text-danger fw-bold">
+                                        @Html.ValidationMessageFor(model => model.Name)
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <div>
+                                        @Html.LabelFor(model => model.DateOfBirth, new { @class = "form-label" })
+                                        <span class="text-danger fw-bold">*</span>
+                                    </div>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.DateOfBirth,
+                                       new { htmlAttributes = new { @class = "datepicker form-control", placeholder = "Pick Your DateOfBirth" } })
+                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                    </div>
+                                    <small class="text-danger fw-bold">
+                                        @Html.ValidationMessageFor(model => model.DateOfBirth)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <div>
+                                        @Html.LabelFor(model => model.MobileNo, new { @class = "form-label" })
+                                        <span class="text-danger fw-bold">*</span>
+                                    </div>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.MobileNo,
+                                       new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Mobile No." } })
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    </div>
+                                    <small class="text-danger fw-bold">
+                                        @Html.ValidationMessageFor(model => model.MobileNo)
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <div>
+                                        @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+                                        <span class="text-danger fw-bold">*</span>
+                                    </div>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.Email,
+                                       new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Email" } })
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <small class="text-danger fw-bold">
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <div>
+                                        @Html.LabelFor(model => model.Password, new { @class = "form-label" })
+                                        <span class="text-danger fw-bold">*</span>
+                                    </div>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.Password,
+                                       new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Password" } })
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <small class="text-danger fw-bold">
+                                        @Html.ValidationMessageFor(model => model.Password)
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <div>
+                                        @Html.LabelFor(model => model.ConfirmPassword, new { @class = "form-label" })
+                                        <span class="text-danger fw-bold">*</span>
+                                    </div>
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.ConfirmPassword,
+                                       new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Confirm Password" } })
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <small class="text-danger fw-bold">
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                @Html.ActionLink("Already an user?", "Signin", "", new { @class = "forgotpassword-link" })
+                            </div>
+                            <div class="col">
+                                <button class="btn login-button">Signup</button>
+                            </div>
+                        </div>
+                    }
+                </section>
+            </div>
+            <div class="col-5 col-right">
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <span class="d-none" id="error-message">@TempData["Error"]</span>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <span class="d-none" id="success-message">@TempData["Success"]</span>
+    }
+
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.1.min.js"></script>
+    <script src="~/Scripts/umd/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+
+
+
+    <script>
+        $("input[data-val-date]").removeAttr("data-val-date");
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1990:2030"
+            });
+            toastr.options = {
+                closeButton: true,
+                positionClass: "toast-top-center"
+            }
+            var errormessage = $("#error-message").text();
+            if (errormessage != '') {
+                toastr.error(errormessage);
+            }
+            var successmessage = $("#success-message").text();
+            if (successmessage != '') {
+                toastr.success(successmessage);
+            }
+        });
+    </script>
+
+
+</body>
+</html>
